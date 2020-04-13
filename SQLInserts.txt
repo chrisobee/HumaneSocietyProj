@@ -1,0 +1,54 @@
+INSERT INTO Categories VALUES('Cats')
+INSERT INTO Categories VALUES('Dogs')
+INSERT INTO Categories VALUES('Small Animals')
+INSERT INTO Categories VALUES('Birds')
+INSERT INTO Categories VALUES('Reptiles')
+GO
+INSERT DietPlans VALUES('Science Diet', 'Dog Food', 4)
+INSERT DietPlans VALUES('Meow Mix', 'Cat Food', 2)
+INSERT DietPlans VALUES('Veggies', 'Small Animal Food', 1)
+INSERT DietPlans VALUES('Seeds', 'Bird Food', 1)
+INSERT DietPlans VALUES('Insects', 'Reptile Food', 1)
+GO
+
+INSERT Employees VALUES('Chris', 'Vaughn', 'CJV2000', '1234', '1', 'cjv20@gmail.com')
+INSERT Employees VALUES('Frank', 'Bednarczyk', 'FSB1997', '5678', '2', 'fsb97@gmail.com')
+INSERT Employees VALUES('Jack', 'Whitely', 'JCW2000', '9101112', '3', 'jcw20@gmail.com')
+INSERT Employees VALUES('Chris', 'Obrien', 'CJO2000', '13141516', '4', 'cjo20@gmail.com')
+INSERT Employees VALUES('Austin', 'Moen', 'ADM2000', '17181920', '5', 'adm20@gmail.com')
+GO
+
+INSERT Clients VALUES('Lynda', 'Hinojosa', 'CjIsQt20', '20191817', 1, 'lmv20@gmail.com')
+INSERT Clients VALUES('Jess', 'Damer', 'AaronIsQt20', '16151413', 2, 'jdm20@gmail.com')
+INSERT Clients VALUES('Aaron', 'Marcus', 'JessIsQt20', '1211109', 3, 'apm20@gmail.com')
+INSERT Clients VALUES('Shannon', 'Schwartz', 'lemon2000', '8765', 4, 'lemon20@gmail.com')
+INSERT Clients VALUES('Ben', 'Dickens', 'BenLies20', '4321', 5, 'bcd20@gmail.com')
+GO
+
+INSERT Addresses VALUES('1234 Gamer St', 'King City', 14, 46018)
+INSERT Addresses VALUES('5678 Kpop Ave', 'Detroit', 22, 48127)
+INSERT Addresses VALUES('4444 Fable Dr', 'Detroit', 22, 48127)
+INSERT Addresses VALUES('4532 Citrus Dr', 'Muskego', 49, 53150)
+INSERT Addresses VALUES('1111 Harvard Cir', 'New York', 32, 10002)
+GO
+
+INSERT Animals VALUES('Apyr', 120, 5, 'Life of the party', 1, 0, 'Male', 'Waiting for forever home', 1, 1, 1)
+INSERT Animals VALUES('Grovetender', 8, 2, 'Clingy', 0, 0, 'Female', 'Fostered', 2, 2, 2)
+INSERT Animals VALUES('Imp', 2, 1, 'Nervous', 1, 0, 'Male', 'Awaiting Adoption Details', 3, 3, 3)
+INSERT Animals VALUES('Jelly', 1, 8, 'Needs Some Warming Up To', 0, 0, 'Female', 'Lookin for some Lovin', 4, 4, 4)
+INSERT Animals VALUES('Newt', 1, 3, 'Likes to Kick It', 1, 1, 'Male', 'Waiting for New Home', 5, 5, 5)
+GO
+
+INSERT Rooms VALUES(1,1)
+INSERT Rooms VALUES(2,2)
+INSERT Rooms VALUES(3,3)
+INSERT Rooms VALUES(4,4)
+INSERT Rooms VALUES(5,5)
+GO
+
+INSERT Rooms VALUES(6, null)
+INSERT Rooms VALUES(7, null)
+INSERT Rooms VALUES(8, null)
+INSERT Rooms VALUES(9, null)
+INSERT Rooms VALUES(10, null)
+GO
