@@ -80,7 +80,7 @@ namespace HumaneSociety
             {
                 clientFromDb = db.Clients.Where(c => c.ClientId == clientWithUpdates.ClientId).Single();
             }
-            catch(InvalidOperationException)
+            catch(InvalidOperationException e)
             {
                 Console.WriteLine("No clients have a ClientId that matches the Client passed in.");
                 Console.WriteLine("No update have been made.");
@@ -171,7 +171,7 @@ namespace HumaneSociety
                 case "create":
                     db.Employees.InsertOnSubmit(employee);
                     db.SubmitChanges();
-                    break;
+                    return;
                 case "read":
                     Employee employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).FirstOrDefault();
                     if(employeeFromDb == null)
@@ -182,7 +182,24 @@ namespace HumaneSociety
                     {
                         UserInterface.DisplayEmployeeInfo(employeeFromDb);
                     }
-                    break;
+                    return;
+                case "update":
+                    Employee employeeToUpdate = null;
+                    try
+                    {
+                        employeeToUpdate = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).FirstOrDefault();
+                    }
+                    catch(InvalidOperationException)
+                    {
+                        Console.WriteLine("There is no employee with that employee number");
+                        Console.WriteLine("No changes were made");
+                        return;
+                    }
+                    employeeToUpdate.FirstName = employee.FirstName;
+                    employeeToUpdate.LastName = employee.LastName;
+                    employeeToUpdate.Email = employee.Email;
+                    db.SubmitChanges();
+                    return;
             }
         }
 
