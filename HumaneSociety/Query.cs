@@ -242,7 +242,11 @@ namespace HumaneSociety
             {
                 animals = FilterAnimals(animals, trait);
             }
+<<<<<<< HEAD
             return animals;
+=======
+            return animals; 
+>>>>>>> 6d8dccf1da660ca1d247c2cff248ef96c09687b7
         }
         public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
         {
