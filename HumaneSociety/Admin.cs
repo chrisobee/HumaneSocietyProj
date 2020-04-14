@@ -70,6 +70,7 @@ namespace HumaneSociety
             {
                 Query.RunEmployeeQueries(employee, "update");
                 UserInterface.DisplayUserOptions("Employee update successful.");
+                Console.ReadLine();
             }
             catch
             {
@@ -105,6 +106,7 @@ namespace HumaneSociety
                 Console.Clear();
                 Query.RunEmployeeQueries(employee, "delete");
                 UserInterface.DisplayUserOptions("Employee successfully removed");
+                Console.ReadLine();
             }
             catch
             {
