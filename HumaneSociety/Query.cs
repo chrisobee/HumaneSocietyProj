@@ -201,17 +201,10 @@ namespace HumaneSociety
                     db.SubmitChanges();
                     return;
                 case "delete":
-                    Employee employeeToDelete = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber && 
+                    var employeeToDelete = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber && 
                     e.LastName == employee.LastName).FirstOrDefault();
                     db.Employees.DeleteOnSubmit(employeeToDelete);
-                    try
-                    {
-                        db.SubmitChanges();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
+                    db.SubmitChanges();
                     return;
             }
         }
@@ -241,9 +234,56 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            IQueryable<Animal> animals = db.Animals;
+
+            foreach(KeyValuePair<int, string> trait in updates)
+            {
+                animals = FilterAnimals(animals, trait);
+            }
         }
-         
+
+        public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
+        {
+            var filteredAnimals = animals;
+            switch (trait.Key)
+            {
+                case 1:
+                    filteredAnimals = animals.Where(x => x.Category.Name == trait.Value);
+                    //searchParameters.Add(1, GetStringData("category", "the animal's"));
+                    break;
+                case 2:
+                    filteredAnimals = animals.Where(x => x.Name == trait.Value);
+                    //searchParameters.Add(2, GetStringData("name", "the animal's"));
+                    break;
+                case 3:
+                    filteredAnimals = animals.Where(x => x.Age.ToString() == trait.Value);
+                    //searchParameters.Add(3, GetIntegerData("age", "the animal's").ToString());
+                    break;
+                case 4:
+                    filteredAnimals = animals.Where(x => )
+                    //searchParameters.Add(4, GetStringData("demeanor", "the animal's"));
+                    break;
+                case 5:
+                    filteredAnimals = animals.Where(x => )
+                    //searchParameters.Add(5, GetBitData("the animal", "kid friendly").ToString());
+                    break;
+                case 6:
+                    filteredAnimals = animals.Where(x => )
+                    //searchParameters.Add(6, GetBitData("the animal", "pet friendly").ToString());
+                    break;
+                case 7:
+                    filteredAnimals = animals.Where(x => )
+                    //searchParameters.Add(7, GetIntegerData("weight", "the animal's").ToString());
+                    break;
+                case 8:
+                    filteredAnimals = animals.Where(x => )
+                    //searchParameters.Add(8, GetIntegerData("ID", "the animal's").ToString());
+                    break;
+                default:
+                    break;
+            }
+            return animals;
+        }
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
