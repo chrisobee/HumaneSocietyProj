@@ -218,7 +218,8 @@ namespace HumaneSociety
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            Animal animal = db.Animals.Where(c => c.AnimalId == id).FirstOrDefault();
+            return animal;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
@@ -241,10 +242,12 @@ namespace HumaneSociety
             {
                 animals = FilterAnimals(animals, trait);
             }
+            return animals;
         }
         public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
         {
             var filteredAnimals = animals;
+            
             switch (trait.Key)
             {
                 case 1:
@@ -290,17 +293,17 @@ namespace HumaneSociety
                     //searchParameters.Add(6, GetBitData("the animal", "pet friendly").ToString());
                     break;
                 case 7:
-                    filteredAnimals = db.Animals.Where(w => w.Weight == Convert.ToInt32(trait.Value));
+                    filteredAnimals = db.Animals.Where(w => w.Weight.ToString() == trait.Value);
                     //searchParameters.Add(7, GetIntegerData("weight", "the animal's").ToString());
                     break;
                 case 8:
-                    filteredAnimals = db.Animals.Where(i => i.AnimalId == Convert.ToInt32(trait.Value));
+                    filteredAnimals = db.Animals.Where(i => i.AnimalId.ToString() == trait.Value);
                     //searchParameters.Add(8, GetIntegerData("ID", "the animal's").ToString());
                     break;
                 default:
                     break;
             }
-            return animals;
+            return filteredAnimals;
         }
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
