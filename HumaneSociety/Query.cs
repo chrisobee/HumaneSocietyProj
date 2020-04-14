@@ -241,6 +241,7 @@ namespace HumaneSociety
             {
                 animals = FilterAnimals(animals, trait);
             }
+            return animals; 
         }
         public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
         {
@@ -300,7 +301,7 @@ namespace HumaneSociety
                 default:
                     break;
             }
-            return animals;
+            return filteredAnimals;
         }
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
