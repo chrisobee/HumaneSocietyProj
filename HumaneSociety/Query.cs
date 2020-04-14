@@ -200,6 +200,19 @@ namespace HumaneSociety
                     employeeToUpdate.Email = employee.Email;
                     db.SubmitChanges();
                     return;
+                case "delete":
+                    Employee employeeToDelete = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber && 
+                    e.LastName == employee.LastName).FirstOrDefault();
+                    db.Employees.DeleteOnSubmit(employeeToDelete);
+                    try
+                    {
+                        db.SubmitChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                    return;
             }
         }
 
