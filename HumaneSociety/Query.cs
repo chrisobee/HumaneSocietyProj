@@ -228,7 +228,56 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            Animal animal;
+            foreach(KeyValuePair<int, string> trait in updates)
+            {
+                switch (trait.Key)
+                {
+                    case 1:
+                        db.Animals.Where(c => c.Category.Name == trait.Value).FirstOrDefault();
+                        break;
+                    case 2:
+                        db.Animals.Where(a => a.Name == trait.Value);
+                        break;
+                    case 3:
+                        db.Animals.Where(a => a.Age == Convert.ToInt32(trait.Value));
+                        break;
+                    case 4:
+                        db.Animals.Where(d => d.Demeanor == trait.Value);
+                        break;
+                    case 5:
+                        bool kidFriendly;
+                        if (trait.Value.ToUpper() == "YES" || trait.Value.ToUpper() == "Y")
+                        {
+                            kidFriendly = true;
+                        }
+                        else
+                        {
+                            kidFriendly = false;
+                        }
+                        db.Animals.Where(k => k.KidFriendly == kidFriendly);
+                        break;
+                    case 6:
+                        bool petFriendly;
+                        if (trait.Value.ToUpper() == "YES" || trait.Value == "Y")
+                        {
+                            petFriendly = true;
+                        }
+                        else
+                        {
+                            petFriendly = false;
+                        }
+                        db.Animals.Where(k => k.KidFriendly == petFriendly);
+                        break;
+                    case 7:
+                        db.Animals.Where(w => w.Weight == Convert.ToInt32(trait.Value));
+                        break;
+                    case 8:
+                        db.Animals.Where(i => i.AnimalId == Convert.ToInt32(trait.Value));
+                        break;
+
+                }
+            }
         }
          
         // TODO: Misc Animal Things
