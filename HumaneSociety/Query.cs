@@ -367,7 +367,14 @@ namespace HumaneSociety
             room = db.Rooms.Where(x => x.AnimalId == animalId).SingleOrDefault();
             return room;
         }
-        
+
+        internal static void ChooseRoom(Animal animal)
+        {
+            Room nextAvailableRoom = db.Rooms.Where(r => r.AnimalId == null).FirstOrDefault();
+            nextAvailableRoom.AnimalId = animal.AnimalId;
+            db.SubmitChanges();
+        }
+
         internal static int GetDietPlanId(string dietPlanName)
         {
             var dietPlan = db.DietPlans.Where(d => d.Name == dietPlanName).FirstOrDefault();
@@ -397,12 +404,22 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            stink
+            if (isAdopted)
+            {
+                RemoveAdoption(adoption.AnimalId, adoption.ClientId);
+                Console.WriteLine("Adoption Approved. Animal removed from database");
+            }
+            else
+            {
+                Console.WriteLine("Adoption Declined. Animal not removed from database");
+            }
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(db.Animals.Where(x => x.AnimalId == animalId).FirstOrDefault());
+            db.Adoptions.DeleteOnSubmit(db.Adoptions.Where(x=> x.AnimalId == animalId && x.ClientId == clientId).FirstOrDefault());
+            db.SubmitChanges();
         }
 
         // TODO: Shots Stuff
