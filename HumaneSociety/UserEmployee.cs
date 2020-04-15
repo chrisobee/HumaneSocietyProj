@@ -306,7 +306,7 @@ namespace HumaneSociety
                 UpdateEmployeeInfo();
             }
         }
-
+        
         private void UpdateEmployeeInfo()
         {
             GetUserName();
