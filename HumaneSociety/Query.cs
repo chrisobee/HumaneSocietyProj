@@ -242,11 +242,7 @@ namespace HumaneSociety
             {
                 animals = FilterAnimals(animals, trait);
             }
-<<<<<<< HEAD
             return animals;
-=======
-            return animals; 
->>>>>>> 6d8dccf1da660ca1d247c2cff248ef96c09687b7
         }
         public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
         {
@@ -256,19 +252,15 @@ namespace HumaneSociety
             {
                 case 1:
                     filteredAnimals = animals.Where(x => x.Category.Name == trait.Value);
-                    //searchParameters.Add(1, GetStringData("category", "the animal's"));
                     break;
                 case 2:
                     filteredAnimals = animals.Where(x => x.Name == trait.Value);
-                    //searchParameters.Add(2, GetStringData("name", "the animal's"));
                     break;
                 case 3:
                     filteredAnimals = animals.Where(x => x.Age.ToString() == trait.Value);
-                    //searchParameters.Add(3, GetIntegerData("age", "the animal's").ToString());
                     break;
                 case 4:
                     filteredAnimals = animals.Where(d => d.Demeanor == trait.Value);
-                    //searchParameters.Add(4, GetStringData("demeanor", "the animal's"));
                     break;
                 case 5:
                      bool kidFriendly;
@@ -281,7 +273,6 @@ namespace HumaneSociety
                             kidFriendly = false;
                         }
                         filteredAnimals = db.Animals.Where(k => k.KidFriendly == kidFriendly);
-                    //searchParameters.Add(5, GetBitData("the animal", "kid friendly").ToString());
                     break;
                 case 6:
                     bool petFriendly;
@@ -294,15 +285,12 @@ namespace HumaneSociety
                             petFriendly = false;
                         }
                         filteredAnimals = db.Animals.Where(k => k.KidFriendly == petFriendly);
-                    //searchParameters.Add(6, GetBitData("the animal", "pet friendly").ToString());
                     break;
                 case 7:
                     filteredAnimals = db.Animals.Where(w => w.Weight.ToString() == trait.Value);
-                    //searchParameters.Add(7, GetIntegerData("weight", "the animal's").ToString());
                     break;
                 case 8:
                     filteredAnimals = db.Animals.Where(i => i.AnimalId.ToString() == trait.Value);
-                    //searchParameters.Add(8, GetIntegerData("ID", "the animal's").ToString());
                     break;
                 default:
                     break;
@@ -330,9 +318,18 @@ namespace HumaneSociety
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+            Adoption adoption = new Adoption()
+            {
+                AnimalId = animal.AnimalId,
+                ClientId = client.ClientId,
+                ApprovalStatus = "Pending",
+                AdoptionFee = 75,
+                PaymentCollected = false
+            };
+            db.Adoptions.InsertOnSubmit(adoption);
+            db.SubmitChanges();
         }
-
+   
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
             throw new NotImplementedException();
