@@ -306,7 +306,9 @@ namespace HumaneSociety
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room room = new Room();
+            room = db.Rooms.Where(x => x.AnimalId == animalId).SingleOrDefault();
+            return room;
         }
         
         internal static int GetDietPlanId(string dietPlanName)
@@ -332,7 +334,8 @@ namespace HumaneSociety
    
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            IQueryable<Adoption> adoptions = db.Adoptions;
+            return adoptions;
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
