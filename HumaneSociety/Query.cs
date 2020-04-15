@@ -239,7 +239,7 @@ namespace HumaneSociety
                 switch (trait.Key)
                 {
                     case 1:
-                        animalToUpdate.Category.Name = trait.Value;
+                        animalToUpdate.CategoryId = db.Categories.Where(c => c.Name == trait.Value).Select(c => c.CategoryId).FirstOrDefault();
                         break;
                     case 2:
                         animalToUpdate.Name = trait.Value;
