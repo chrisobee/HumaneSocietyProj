@@ -208,7 +208,6 @@ namespace HumaneSociety
                     return;
             }
         }
-
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
@@ -223,8 +222,64 @@ namespace HumaneSociety
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {            
-            throw new NotImplementedException();
+        {
+            Animal animalToUpdate = null;
+            try
+            {
+                animalToUpdate = db.Animals.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            }
+            catch(InvalidOperationException)
+            {
+                Console.WriteLine("There is no Animal with that Animal ID");
+                Console.WriteLine("No changes were made");
+                return;
+            }
+            foreach ( KeyValuePair<int, string> trait in updates)
+            {
+                switch (trait.Key)
+                {
+                    case 1:
+                        animalToUpdate.Category.Name = trait.Value;
+                        break;
+                    case 2:
+                        animalToUpdate.Name = trait.Value;
+                        break;
+                    case 3:
+                        animalToUpdate.Age = Convert.ToInt32(trait.Value);
+                        break;
+                    case 4:
+                        animalToUpdate.Demeanor = trait.Value;
+                        break;
+                    case 5:
+                        bool kidFriendly;
+                        if (trait.Value.ToUpper() == "YES" || trait.Value.ToUpper() == "Y")
+                        {
+                            kidFriendly = true;
+                        }
+                        else
+                        {
+                            kidFriendly = false;
+                        }
+                        animalToUpdate.KidFriendly = kidFriendly;
+                        break;
+                    case 6:
+                        bool petFriendly;
+                        if (trait.Value.ToUpper() == "YES" || trait.Value == "Y")
+                        {
+                            petFriendly = true;
+                        }
+                        else
+                        {
+                            petFriendly = false;
+                        }
+                        animalToUpdate.PetFriendly = petFriendly;
+                        break;
+                    case 7:
+                        animalToUpdate.Weight = Convert.ToInt32(trait.Value);
+                        break;
+                }
+            }
+            db.SubmitChanges();
         }
 
         internal static void RemoveAnimal(Animal animal)
@@ -242,11 +297,8 @@ namespace HumaneSociety
             {
                 animals = FilterAnimals(animals, trait);
             }
-<<<<<<< HEAD
+
             return animals;
-=======
-            return animals; 
->>>>>>> 6d8dccf1da660ca1d247c2cff248ef96c09687b7
         }
         public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
         {
