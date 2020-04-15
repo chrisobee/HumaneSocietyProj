@@ -239,7 +239,8 @@ namespace HumaneSociety
                 switch (trait.Key)
                 {
                     case 1:
-                        animalToUpdate.Category.Name = trait.Value;
+                        var category = db.Categories.Where(c => c.Name == trait.Value).FirstOrDefault();
+                        animalToUpdate.Category = category;
                         break;
                     case 2:
                         animalToUpdate.Name = trait.Value;
@@ -284,15 +285,13 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
-            //Animal animal T
-            //db.Animals.DeleteOnSubmit(animalT)
-            //db.SubmitChanges();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates)
         {
-
             IQueryable<Animal> animals = db.Animals;
 
             foreach(KeyValuePair<int, string> trait in updates)
