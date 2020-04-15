@@ -284,7 +284,8 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
@@ -297,10 +298,6 @@ namespace HumaneSociety
             {
                 animals = FilterAnimals(animals, trait);
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> 321c89eceeec5f3d00cb9ab466ccb6fc021a0c74
             return animals;
         }
         public static IQueryable<Animal> FilterAnimals(IQueryable<Animal> animals, KeyValuePair<int, string> trait)
