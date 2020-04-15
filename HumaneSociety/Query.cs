@@ -284,8 +284,9 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
-            db.Animals.DeleteOnSubmit(animal);
-            db.SubmitChanges();
+            //Animal animal T
+            //db.Animals.DeleteOnSubmit(animalT)
+            //db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
@@ -396,17 +397,7 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            if (isAdopted)
-            {
-                db.Animals.DeleteOnSubmit(db.Animals.Where(x => x.AnimalId == adoption.AnimalId).FirstOrDefault());
-                db.Adoptions.DeleteOnSubmit(adoption);
-                db.SubmitChanges();
-                Console.WriteLine("Adoption Approved. Animal removed from database");
-            }
-            else
-            {
-                Console.WriteLine("Adoption Declined. Animal not removed from database");
-            }
+            throw new NotImplementedException();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
@@ -417,12 +408,18 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+            IQueryable<AnimalShot> animalShots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
+            return animalShots;
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            throw new NotImplementedException();
+            AnimalShot animalShot = new AnimalShot();
+            animalShot.AnimalId = animal.AnimalId;
+            animalShot.ShotId = db.Shots.Where(s => s.Name == shotName).Select(s => s.ShotId).FirstOrDefault();
+            animalShot.DateReceived = DateTime.Now;
+            db.AnimalShots.InsertOnSubmit(animalShot);
+            db.SubmitChanges();
         }
     }
 }
