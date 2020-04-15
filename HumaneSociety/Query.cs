@@ -239,7 +239,8 @@ namespace HumaneSociety
                 switch (trait.Key)
                 {
                     case 1:
-                        animalToUpdate.CategoryId = db.Categories.Where(c => c.Name == trait.Value).Select(c => c.CategoryId).FirstOrDefault();
+                        var category = db.Categories.Where(c => c.Name == trait.Value).FirstOrDefault();
+                        animalToUpdate.Category = category;
                         break;
                     case 2:
                         animalToUpdate.Name = trait.Value;
@@ -284,6 +285,7 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
+
             Animal animalToDelete = db.Animals.Where(x => x.AnimalId == animal.AnimalId).FirstOrDefault();
             db.Animals.DeleteOnSubmit(animalToDelete);
             db.SubmitChanges();
@@ -292,7 +294,6 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates)
         {
-
             IQueryable<Animal> animals = db.Animals;
 
             foreach(KeyValuePair<int, string> trait in updates)
@@ -411,6 +412,8 @@ namespace HumaneSociety
             }
             else
             {
+                db.Adoptions.DeleteOnSubmit(adoption);
+                db.SubmitChanges();
                 Console.WriteLine("Adoption Declined. Animal not removed from database");
             }
         }
