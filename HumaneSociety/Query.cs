@@ -285,9 +285,16 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+            db.Animals.DeleteOnSubmit(animal);
+=======
+>>>>>>> 483088efbed7bb9fac211f56eb7ab76ee6742233
             Animal animalToDelete = db.Animals.Where(x => x.AnimalId == animal.AnimalId).FirstOrDefault();
             db.Animals.DeleteOnSubmit(animalToDelete);
+>>>>>>> d2a6863c26f318ad3e90c7bc2fe45436550a0faa
             db.SubmitChanges();
         }
         
