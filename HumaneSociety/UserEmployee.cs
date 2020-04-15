@@ -259,6 +259,7 @@ namespace HumaneSociety
             animal.Weight = UserInterface.GetIntegerData("the animal", "the weight of the");
             animal.DietPlanId = Query.GetDietPlanId(animalDietPlanName);
             Query.AddAnimal(animal);
+            Query.ChooseRoom(animal);
         }
         protected override void LogInPreExistingUser()
         {
