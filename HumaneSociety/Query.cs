@@ -285,20 +285,7 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
-<<<<<<< HEAD
             db.Animals.DeleteOnSubmit(animal);
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-            db.Animals.DeleteOnSubmit(animal);
-=======
->>>>>>> 483088efbed7bb9fac211f56eb7ab76ee6742233
-            Animal animalToDelete = db.Animals.Where(x => x.AnimalId == animal.AnimalId).FirstOrDefault();
-            db.Animals.DeleteOnSubmit(animalToDelete);
->>>>>>> d2a6863c26f318ad3e90c7bc2fe45436550a0faa
->>>>>>> 85099ec796376d53770f44d9766dc95a20a8909a
             db.SubmitChanges();
         }
         
@@ -446,29 +433,20 @@ namespace HumaneSociety
         internal static void UpdateShot(string shotName, Animal animal)
         {
             Shot shot = db.Shots.Where(s => s.Name == shotName).FirstOrDefault();
-            var shotExists = db.Shots.Contains(shot);
-            if (shotExists == true)
-            {
-                AnimalShot animalShot = new AnimalShot();
-                animalShot.AnimalId = animal.AnimalId;
-                animalShot.ShotId = db.Shots.Where(s => s.Name == shotName).Select(s => s.ShotId).FirstOrDefault();
-                animalShot.DateReceived = DateTime.Now;
-                db.AnimalShots.InsertOnSubmit(animalShot);
-                db.SubmitChanges();
-            }
-            else
+            var shotExists = db.Shots.Contains(shot);            
+            if(shotExists == false)
             {
                 Shot shotToAdd = new Shot();
                 shotToAdd.Name = shotName;
                 db.Shots.InsertOnSubmit(shotToAdd);
                 db.SubmitChanges();
-                AnimalShot animalShot = new AnimalShot();
-                animalShot.AnimalId = animal.AnimalId;
-                animalShot.ShotId = db.Shots.Where(s => s.Name == shotName).Select(s => s.ShotId).FirstOrDefault();
-                animalShot.DateReceived = DateTime.Now;
-                db.AnimalShots.InsertOnSubmit(animalShot);
-                db.SubmitChanges();
             }
+            AnimalShot animalShot = new AnimalShot();
+            animalShot.AnimalId = animal.AnimalId;
+            animalShot.ShotId = db.Shots.Where(s => s.Name == shotName).Select(s => s.ShotId).FirstOrDefault();
+            animalShot.DateReceived = DateTime.Now;
+            db.AnimalShots.InsertOnSubmit(animalShot);
+            db.SubmitChanges();
         }
     }
 }
